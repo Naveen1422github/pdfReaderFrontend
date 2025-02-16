@@ -62,7 +62,7 @@ function App() {
   
   useEffect(() => {
     const fetchFeatures = async () => {
-      const response = await fetch('http://localhost:5000/getFeatures', {
+      const response = await fetch('${import.meta.env.VITE_API_URL}/getFeatures', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user: user?.Id }),
@@ -81,7 +81,7 @@ function App() {
 
   useEffect(() => {
     const fetchLibraries = async () => {
-      const response = await fetch('http://localhost:5000/getTopics', {
+      const response = await fetch('${import.meta.env.VITE_API_URL}/getTopics', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user: user?.Id }),

@@ -54,7 +54,7 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
       // console.log('Promptkjflkds jfdsf:', prompt);
       // console.log(feature)
       // return
-      const response = await fetch("http://localhost:5000/meaning", {
+      const response = await fetch("${import.meta.env.VITE_API_URL}/meaning", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userText:prompt }),
@@ -95,7 +95,7 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/meaning", {
+      const response = await fetch("${import.meta.env.VITE_API_URL}/meaning", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userText: prompt }),
@@ -126,7 +126,7 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
     };
     console.log('Save to folder:', payload);
     try {
-      const response = await fetch("http://localhost:5000/vocab/create", {
+      const response = await fetch("${import.meta.env.VITE_API_URL}/vocab/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

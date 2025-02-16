@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await fetch('http://localhost:5000/login', {
+    const response = await fetch('${import.meta.env.VITE_API_URL}/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (name: string, email: string, password: string) => {
-    const response = await fetch('http://localhost:5000/register', {
+    const response = await fetch('${import.meta.env.VITE_API_URL}/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password }),
@@ -77,7 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const verifyToken = async (token: string) => {
-    const response = await fetch('http://localhost:5000/verify-token', {
+    const response = await fetch('${import.meta.env.VITE_API_URL}/verify-token', {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
