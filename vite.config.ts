@@ -76,7 +76,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  // base: '/pdfReaderFrontend/',
+  base: '/pdfReaderFrontend/',
   build: {
     rollupOptions: {
       external: ["jsdom"],
