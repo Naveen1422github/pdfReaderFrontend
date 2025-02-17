@@ -1,5 +1,12 @@
 
 import { useState } from 'react';
+const API_URL = import.meta.env.VITE_API_URL;
+// import {VITE_API_URL } from '../../..
+
+
+// const API_URL = VITE_API_URL;
+
+
 
 export interface Feature {
   _id: string;
@@ -50,7 +57,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
       f._id === id ? { ...f, enabled: !f.enabled } : f
     );
 
-    await fetch('${import.meta.env.VITE_API_URL}/updateFeature', {
+    await fetch(`${API_URL}/updateFeature`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ feature: features.find(f => f._id === id ? {...f, enabled: !f.enabled}:f ) }),
@@ -63,7 +70,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
     const updatedFeatures = features.filter(f => f._id != id);
     const feature = features.filter(f => f._id == id);
     console.log("feature", feature)
-    await fetch('${import.meta.env.VITE_API_URL}/deleteFeature', {
+    await fetch(`${API_URL}/deleteFeature`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: feature[0]._id }),
@@ -83,7 +90,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
         enabled: true
       };
 
-      const response = await fetch('${import.meta.env.VITE_API_URL}/addFeature', {
+      const response = await fetch(`${API_URL}/addFeature`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ featureToAdd }),
@@ -115,7 +122,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
       setFeatures(updatedFeatures);
       setEditingFeature(null);
 
-      await fetch('${import.meta.env.VITE_API_URL}/updateFeature', {
+      await fetch(`${API_URL}/updateFeature`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ feature: editingFeature }),
@@ -136,7 +143,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
     );
     setLibraries(updatedLibraries);
 
-    await fetch('${import.meta.env.VITE_API_URL}/updateTopic', {
+    await fetch(`${API_URL}/updateTopic`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ topic: libraries.find(l => l._id === id ? {...l, enabled: !l.enabled}:l ) }),
@@ -147,7 +154,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
     const updatedLibraries = libraries.filter(l => l._id !== id);
     const library = libraries.filter(l => l._id === id);
 
-    await fetch('${import.meta.env.VITE_API_URL}/deleteTopic', {
+    await fetch(`${API_URL}/deleteTopic`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: library[0]._id }),
@@ -165,7 +172,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
         enabled: true,
       };
 
-      const response = await fetch('${import.meta.env.VITE_API_URL}/addTopic', {
+      const response = await fetch(`${API_URL}/addTopic`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topicToAdd }),
@@ -196,7 +203,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
       setLibraries(updatedLibraries);
       setEditingLibrary(null);
 
-      await fetch('${import.meta.env.VITE_API_URL}/updateTopic', {
+      await fetch(`${API_URL}/updateTopic`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: editingLibrary }),

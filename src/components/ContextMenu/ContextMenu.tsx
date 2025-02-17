@@ -1,6 +1,9 @@
 import  { useRef, useState, useEffect } from 'react';
 import { Brain, BookMarked, ExternalLink, Copy } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 import { Library } from '../Settings/Settings';
 import { Feature } from '../Settings/Settings';
 
@@ -50,11 +53,11 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
       setShowMenu(false);
       setLoading(true);
       
-      const prompt = `${feature.prompt} selectedText: ${selectedText}`;
+      const prompt = `prompt: ${feature.prompt}, selectedText: ${selectedText}, direction : give answers in short way until asked to give in detail`;
       // console.log('Promptkjflkds jfdsf:', prompt);
       // console.log(feature)
       // return
-      const response = await fetch("${import.meta.env.VITE_API_URL}/meaning", {
+      const response = await fetch("${API_URL}/meaning", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userText:prompt }),
@@ -95,7 +98,7 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
     setLoading(true);
 
     try {
-      const response = await fetch("${import.meta.env.VITE_API_URL}/meaning", {
+      const response = await fetch("API_URL/meaning", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userText: prompt }),
@@ -126,7 +129,7 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
     };
     console.log('Save to folder:', payload);
     try {
-      const response = await fetch("${import.meta.env.VITE_API_URL}/vocab/create", {
+      const response = await fetch("${API_URL}/vocab/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

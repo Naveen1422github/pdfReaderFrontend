@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Library } from '../Settings/Settings';
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 
 
 interface VocabularyItem {
@@ -29,7 +32,7 @@ export function VocabularyPage({darkMode, onClose,libraries, user}: VocabularyPa
     const fetchVocabulary = async () => {
       try {
         console.log("user covab", typeof(user.Id));
-        const response = await fetch(`http://localhost:5000/vocab/get/All/${user?.Id}`);
+        const response = await fetch(`${API_URL}/vocab/get/All/${user?.Id}`);
         const data = await response.json();
         console.log("data", data);
         if (!response.ok) throw new Error(data.message || 'Failed to fetch vocabulary');

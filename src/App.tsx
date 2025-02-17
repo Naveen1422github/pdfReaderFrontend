@@ -18,7 +18,9 @@ import { VocabularyPage } from './components/Library/WordLibrary';
 import { AuthProvider, useAuth } from './login/AuthContext';
 import { LoginForm } from './login/LoginForm';
 import { RegisterForm } from './login/RegisterForm';
-import { copySync } from 'fs-extra';
+// import { copySync } from 'fs-extra';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
@@ -62,7 +64,7 @@ function App() {
   
   useEffect(() => {
     const fetchFeatures = async () => {
-      const response = await fetch('${import.meta.env.VITE_API_URL}/getFeatures', {
+      const response = await fetch(`${API_URL}/getFeatures`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user: user?.Id }),
@@ -81,7 +83,7 @@ function App() {
 
   useEffect(() => {
     const fetchLibraries = async () => {
-      const response = await fetch('${import.meta.env.VITE_API_URL}/getTopics', {
+      const response = await fetch(`${API_URL}/getTopics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user: user?.Id }),

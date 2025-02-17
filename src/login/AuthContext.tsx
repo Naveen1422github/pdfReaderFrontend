@@ -18,6 +18,9 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+const API_URL = import.meta.env.VITE_API_URL;
+console.log("api", API_URL);
+
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await fetch('${import.meta.env.VITE_API_URL}/login', {
+    const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -57,7 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (name: string, email: string, password: string) => {
-    const response = await fetch('${import.meta.env.VITE_API_URL}/register', {
+    const response = await fetch(`${API_URL}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password }),
@@ -77,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const verifyToken = async (token: string) => {
-    const response = await fetch('${import.meta.env.VITE_API_URL}/verify-token', {
+    const response = await fetch(`${API_URL}/verify-token`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
