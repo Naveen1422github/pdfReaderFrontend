@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import mongose from 'mongoose';
+import mongose, { set } from 'mongoose';
 
 interface User {
   email: string;
@@ -19,7 +19,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
 const API_URL = import.meta.env.VITE_API_URL;
-console.log("api", API_URL);
+// console.log("api", API_URL);
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,9 +31,12 @@ console.log("api", API_URL);
       // Validate token with backend
       verifyToken(token).then(userData => {
         setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
         setLoading(false);
       }).catch(() => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
         setLoading(false);
       });
     } else {
@@ -46,6 +49,7 @@ console.log("api", API_URL);
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
+      // credentials: 'include',
     });
 
     const res = await response.json();
@@ -76,6 +80,7 @@ console.log("api", API_URL);
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
   };
 

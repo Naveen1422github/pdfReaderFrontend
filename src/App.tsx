@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { pdfjs } from 'react-pdf';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Feature } from './components/Settings/Settings';
@@ -30,7 +29,7 @@ function ProtectedRoute({ children }: { children: JSX.Element }) {
   return user ? children : <Navigate to="/login" replace />;
 }
 
-const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null;
+// const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null;
 // Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -59,11 +58,12 @@ function App() {
   });
 
   const [features, setFeatures] = useState<Feature[]>([]);
-
-  console.log("user", user);
+  const {user, loading} = useAuth();
+  // console.log("user", user);
   
   useEffect(() => {
     const fetchFeatures = async () => {
+      if (!user?.Id) return;
       const response = await fetch(`${API_URL}/getFeatures`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -74,7 +74,9 @@ function App() {
     };
   
     fetchFeatures();
-  }, []);
+  }, [user]);
+
+  console.log("user", user);
 
   console.log("features", features);
 
@@ -94,7 +96,7 @@ function App() {
   
     fetchLibraries();
   }
-  , []);
+  , [user]);
   
   console.log("libraries", libraries);
 
@@ -167,7 +169,7 @@ function App() {
   };
 
   return (
-    <AuthProvider>
+    // <AuthProvider>
     <Router>
     <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
     {contextMenu.visible && (
@@ -269,7 +271,7 @@ function App() {
   </main>
     </div >
     </Router>
-    </AuthProvider>
+    // </AuthProvider>
   );
 }
 
