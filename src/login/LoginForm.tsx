@@ -83,6 +83,11 @@ export function LoginForm() {
           {error}
         </div>
       )}
+      <div className="mb-4 p-4 bg-yellow-100 text-yellow-800 rounded text-sm">
+        <p>
+          Note: For the purpose of this demo, you can use any random email and password to login.
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
