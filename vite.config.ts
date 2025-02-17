@@ -76,7 +76,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/pdfReaderFrontend/',
+  // base: '/pdfReaderFrontend/',
   build: {
     rollupOptions: {
       external: ["jsdom"],
@@ -90,7 +90,7 @@ export default defineConfig({
     },
     proxy: {
       "/api": {
-        target: import.meta.env.VITE_API_URL,
+        target: import.meta.env.VITE_API_URL || "https://pdfreaderbackend.onrender.com",
         changeOrigin: true,
         secure: false,
       }
