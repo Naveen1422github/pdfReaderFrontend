@@ -223,22 +223,22 @@ if (showSaveOptions) {
         <button
           key={feature._id}
           onClick={() => handleFeatureAction(feature)}
-          className="w-full px-4 py-2 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+          className={`w-full px-4 py-2 flex items-center gap-2 ${darkMode ? 'hover:bg-gray-700' : 'bg-gray-100'}`}
         >
           {feature.name}
         </button>
       ))}
 
-      <button onClick={handleGetMeaning} className="w-full px-4 py-2 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+      <button onClick={handleGetMeaning}className={`w-full px-4 py-2 flex items-center gap-2 ${darkMode ? 'hover:bg-gray-700' : 'bg-gray-100'}`}>
         <Brain className="w-4 h-4" /> Get Meaning
       </button>
-      <button onClick={handleSave} className="w-full px-4 py-2 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+      <button onClick={handleSave}className={`w-full px-4 py-2 flex items-center gap-2 ${darkMode ? 'hover:bg-gray-700' : 'bg-gray-100'}`}>
         <BookMarked className="w-4 h-4" /> Save Selection
       </button>
-      <button onClick={handleCopy} className="w-full px-4 py-2 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+      <button onClick={handleCopy} className={`w-full px-4 py-2 flex items-center gap-2 ${darkMode ? 'hover:bg-gray-700' : 'bg-gray-100'}`}>
         <Copy className="w-4 h-4" /> Copy
       </button>
-      <button onClick={handleSearch} className="w-full px-4 py-2 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+      <button onClick={handleSearch} className={`w-full px-4 py-2 flex items-center gap-2 ${darkMode ? 'hover:bg-gray-700' : 'bg-gray-100'}`}>
         <ExternalLink className="w-4 h-4" /> Search on Google
       </button>
     </div>

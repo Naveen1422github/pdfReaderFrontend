@@ -4,6 +4,7 @@
 import { Moon, Sun, Search, BookOpen, Menu, Settings, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from '../../login/AuthContext';
+import { motion } from "framer-motion";
 
 interface HeaderProps {
   darkMode: boolean;
@@ -55,7 +56,7 @@ export function Header({
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Dark Mode Toggle */}
-            <button
+            {/* <button
               onClick={() => setDarkMode(!darkMode)}
               className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
@@ -65,10 +66,22 @@ export function Header({
               ) : (
                 <Moon className="w-5 h-5" />
               )}
-            </button>
-
+            </button> */}
+            <button
+      onClick={() => setDarkMode(!darkMode)}
+      className="relative w-16 h-8 flex items-center rounded-full bg-gray-300 dark:bg-gray-800 p-1"
+    >
+      <Moon className="w-5 h-5 text-black-300 absolute right-2" />
+      <Sun className="w-5 h-5 text-orange-500 absolute left-2" />
+      <motion.div
+className={`w-6 h-6 rounded-full shadow-md z-10 ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        }`}        animate={{ x: darkMode ? 32 : 0 }} // Moves the circle
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      />
+    </button>
             {/* Search Bar */}
-            <div className="relative">
+            {/* <div className="relative">
               <input
                 type="text"
                 placeholder="Search in document..."
@@ -84,7 +97,7 @@ export function Header({
                   darkMode ? "text-gray-400" : "text-gray-500"
                 }`}
               />
-            </div>
+            </div> */}
 
             {/* Settings Button */}
             <Link

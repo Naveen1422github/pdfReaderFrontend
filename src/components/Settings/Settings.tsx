@@ -230,7 +230,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
           </button>
         </div>
 
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <div className="flex items-center justify-between p-4 rounded-lg bg-white dark:bg-gray-800 shadow mb-4">
             <span>Dark Mode</span>
             <button
@@ -242,14 +242,16 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
               {darkMode ? 'Disable' : 'Enable'}
             </button>
           </div>
-        </div>
+        </div> */}
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
+        {/* <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8"> */}
+        <div className={`${darkMode ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6 mb-8`}>
           <h2 className="text-2xl font-semibold mb-6">Context Menu Features</h2>
           
           <div className="space-y-4 mb-8">
             {(features || []).map(feature => (
-              <div key={feature._id} className="flex items-center justify-between p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
+              //below bg-gray-50 dark:bg-gray-700 means 
+              <div key={feature._id} className={`flex items-center justify-between p-4 rounded-lg ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
                 <div className="flex items-center gap-4">
                   <span>{feature.name}</span>
                   {feature.user && (
@@ -290,13 +292,13 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
                 <div className="space-y-4">
                   <input
                     placeholder="Feature Name"
-                    className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+                    className={`w-full p-2 border rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
                     value={editingFeature.name}
                     onChange={e => setEditingFeature({ ...editingFeature, name: e.target.value })}
                   />
                   <textarea
                     placeholder="Prompt Template: Translate selected text to in Japanese, answer it in short way."
-                    className="w-full p-2 border rounded h-24 dark:bg-gray-700 dark:border-gray-600"
+                    className={`w-full p-2 border rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
                     value={editingFeature.prompt}
                     onChange={e => setEditingFeature({ ...editingFeature, prompt: e.target.value })}
                   />
@@ -319,16 +321,18 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
             ) : (
               <>
                 <h3 className="text-xl font-semibold mb-4">Add New Feature</h3>
-                <div className="space-y-4">
+                <div className={`space-y-4`}>
                   <input
                     placeholder="Feature Name"
-                    className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+                    className={`w-full p-2 border rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
                     value={newFeature.name}
                     onChange={e => setNewFeature({...newFeature, name: e.target.value})}
                   />
                   <textarea
                     placeholder="Prompt Template: Translate selected text to in Japanese, answer it in short way."
-                    className="w-full p-2 border rounded h-24 dark:bg-gray-700 dark:border-gray-600"
+                
+                    className={`w-full p-2 border rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
+
                     value={newFeature.prompt}
                     onChange={e => setNewFeature({...newFeature, prompt: e.target.value})}
                   />
@@ -346,11 +350,12 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
         </div>
 
          {/* Library Section */}
-         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8">
+         {/* <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-8"> */}
+         <div className={`${darkMode ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow p-6 mb-8`}>
           <h2 className="text-2xl font-semibold mb-6">Libraries</h2>
           <div className="space-y-4 mb-8">
             {(libraries || []).map(library => (
-              <div key={library._id} className="flex items-center justify-between p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
+              <div key={library._id} className={`flex items-center justify-between p-4 rounded-lg ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
                 <div className="flex items-center gap-4">
                   <span>{library.name}</span>
                   {library.user && (
@@ -391,7 +396,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
                 <div className="space-y-4">
                   <input
                     placeholder="Library Name"
-                    className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+                    className={`w-full p-2 border rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
                     value={editingLibrary.name}
                     onChange={e => setEditingLibrary({ ...editingLibrary, name: e.target.value })}
                   />
@@ -417,7 +422,7 @@ export function Settings({ darkMode, setDarkMode, features = [], setFeatures, li
                 <div className="space-y-4">
                   <input
                     placeholder="Library Name"
-                    className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+                    className={`w-full p-2 border rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
                     value={newLibrary.name}
                     onChange={e => setNewLibrary({ ...newLibrary, name: e.target.value })}
                   />
