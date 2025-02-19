@@ -3,7 +3,6 @@ import { Brain, BookMarked, ExternalLink, Copy } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-
 import { Library } from '../Settings/Settings';
 import { Feature } from '../Settings/Settings';
 
@@ -26,7 +25,6 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
   const [showSaveOptions, setShowSaveOptions] = useState(false);
 
   const [saveType, setSaveType] = useState<'selection' | 'meaning' | null>(null);
-  const [folders] = useState<string[]>(["General", "Work", "Personal", "Important"]);
 
   // const [activeFeature, setActiveFeature] = useState<Feature | null>(null);
   // const [featureResult, setFeatureResult] = useState<{content: any, feature: Feature} | null>(null);
@@ -57,7 +55,7 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
       // console.log('Promptkjflkds jfdsf:', prompt);
       // console.log(feature)
       // return
-      const response = await fetch("${API_URL}/meaning", {
+      const response = await fetch(`${API_URL}/meaning`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userText:prompt }),
@@ -98,7 +96,7 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
     setLoading(true);
 
     try {
-      const response = await fetch("API_URL/meaning", {
+      const response = await fetch(`${API_URL}/meaning`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userText: prompt }),
@@ -123,13 +121,13 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
   const saveToFolder = async (topic: string, user:string) => {
     const payload = {
       word:selectedText,
-      meaning,
+      meaning: meaning || '', 
       topic,
       user, // Now using the library's collection name
     };
     console.log('Save to folder:', payload);
     try {
-      const response = await fetch("${API_URL}/vocab/create", {
+      const response = await fetch(`${API_URL}/vocab/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

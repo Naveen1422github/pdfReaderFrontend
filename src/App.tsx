@@ -29,8 +29,7 @@ function ProtectedRoute({ children }: { children: JSX.Element }) {
   return user ? children : <Navigate to="/login" replace />;
 }
 
-// const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null;
-// Set up PDF.js worker
+// Set up PDF.js worker this is where the worker is located which is used to render the PDF
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 
