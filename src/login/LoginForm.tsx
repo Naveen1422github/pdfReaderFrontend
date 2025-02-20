@@ -31,7 +31,7 @@ export function LoginForm() {
       )}
       <div className="mb-4 p-4 bg-yellow-100 text-yellow-800 rounded text-sm">
         <p>
-          Note: For the purpose of this demo, email- Dummy@gmail.com and password Dummy@123.
+          Note: For the purpose of this demo, Use email- Dummy@gmail.com and password Dummy@123.
         </p>
       </div>
 
