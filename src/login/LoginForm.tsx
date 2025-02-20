@@ -29,11 +29,11 @@ export function LoginForm() {
           {error}
         </div>
       )}
-      {/* <div className="mb-4 p-4 bg-yellow-100 text-yellow-800 rounded text-sm">
+      <div className="mb-4 p-4 bg-yellow-100 text-yellow-800 rounded text-sm">
         <p>
-          Note: For the purpose of this demo, you can use any random email and password to register.
+          Note: For the purpose of this demo, email- Dummy@gmail.com and password Dummy@123.
         </p>
-      </div> */}
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

@@ -26,7 +26,7 @@ function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { user, loading } = useAuth();
   console.log("user1", user);
   if (loading) return <div>Loading...</div>;
-  return user ? children : <Navigate to="/register" replace />;
+  return user ? children : <Navigate to="/login" replace />;
 }
 
 // Set up PDF.js worker this is where the worker is located which is used to render the PDF
