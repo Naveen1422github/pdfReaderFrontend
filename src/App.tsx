@@ -26,7 +26,7 @@ function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { user, loading } = useAuth();
   console.log("user1", user);
   if (loading) return <div>Loading...</div>;
-  return user ? children : <Navigate to="/login" replace />;
+  return user ? children : <Navigate to="/register" replace />;
 }
 
 // Set up PDF.js worker this is where the worker is located which is used to render the PDF
@@ -104,15 +104,44 @@ function App() {
     // if (savedFeatures) {
     //   setFeatures(JSON.parse(savedFeatures));
     // }
+    // function handleSelectionChange() {
+    //   const selection = window.getSelection();
+    //   if (selection && selection.toString().trim()) {
+    //     const range = selection.getRangeAt(0);
+    //     const rect = range.getBoundingClientRect();
+    //     setContextMenu({
+    //       visible: true,
+    //       x: rect.left,
+    //       y: rect.bottom + window.scrollY,
+    //       selectedText: selection.toString().trim(),
+    //     });
+    //   } else {
+    //     setContextMenu(prev => ({ ...prev, visible: false }));
+    //   }
+    // }
     function handleSelectionChange() {
       const selection = window.getSelection();
+      const pdfContainer = document.querySelector('.pdf-container');
+      
       if (selection && selection.toString().trim()) {
         const range = selection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const menuHeight = 200; // Match your actual menu height
+    
+        // Calculate positions considering PDF container scroll
+        const containerScroll = pdfContainer ? pdfContainer.scrollTop : 0;
+        let yPosition = rect.bottom + containerScroll;
+        
+        // Check viewport boundaries
+        if (yPosition + menuHeight > viewportHeight) {
+          yPosition = rect.top + containerScroll - menuHeight;
+        }
+    
         setContextMenu({
           visible: true,
           x: rect.left,
-          y: rect.bottom + window.scrollY,
+          y: yPosition,
           selectedText: selection.toString().trim(),
         });
       } else {
@@ -176,13 +205,21 @@ function App() {
           x={contextMenu.x}
           y={contextMenu.y}
           selectedText={contextMenu.selectedText}
-          onClose={() => setContextMenu(prev => ({ ...prev, visible: false }))}
+          onClose={() => setContextMenu(prev => ({ ...prev, visible: false, x: -1000, y: -1000, selectedText: '' }))}
           darkMode={darkMode}
           features={features}
           libraries={libraries}
           user={user}
         />
-        
+        // {contextMenu.text && (
+        //   <ContextMenu
+        //     x={contextMenu.x}
+        //     y={contextMenu.y}
+        //     selectedText={contextMenu.text}
+        //     darkMode={darkMode}
+        //     onClose={() => setContextMenu({ x: -1000, y: -1000, text: '' })}
+        //   />
+        // )}
     )}
 
     
@@ -205,8 +242,8 @@ function App() {
       )}
 
       <Routes>
-      <Route path="/login" element={<LoginForm />} />
       <Route path="/register" element={<RegisterForm />} />
+      <Route path="/login" element={<LoginForm />} />
             <Route
                 path="/"
                 element={

@@ -40,6 +40,31 @@ export function ContextMenu({ x, y, onClose, selectedText, darkMode, features, l
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [onClose]);
 
+  // Add to your ContextMenu component
+const [position, setPosition] = useState({ x: 0, y: 0 });
+
+useEffect(() => {
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const menuWidth = 220;
+  const menuHeight = 200;
+
+  let adjustedX = x;
+  let adjustedY = y;
+
+  // Horizontal adjustment
+  if (x + menuWidth > viewportWidth) {
+    adjustedX = viewportWidth - menuWidth - 10;
+  }
+
+  // Vertical adjustment
+  if (y + menuHeight > viewportHeight) {
+    adjustedY = viewportHeight - menuHeight - 10;
+  }
+
+  setPosition({ x: adjustedX, y: adjustedY });
+}, [x, y]);
+
   const menuWidth = 220;
   const menuHeight = 200;
   const adjustedX = Math.min(x, window.innerWidth - menuWidth);
